@@ -25,10 +25,16 @@ diagonal
 1 5 9
 3 5 7
 
-need to check if the claimed positions array of the players includes any of the above combinations.
-In order to do so, I could do array.includes 3 times, but this looks very redundant and tedious.
-Thinking i could do a loop that checks
+Notes for next time
 
-Have an upper boolean variable determining if the person has won after an action.
-Have a loop for each
+An object containing the functions and variables that control the flow of the game.
+
+What will be in this object:
+- gameReset()
+- requestName()
+
+Problem from last time: 
+gameBoardArray was not updating, suspected that the const gameBoardReset was not taking effect. Used an explicit definition, not sure if it fixed it. Check next time.
+
+
 

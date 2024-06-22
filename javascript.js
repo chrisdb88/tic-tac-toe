@@ -71,7 +71,7 @@ const game = (function() {
     }
 
     function gameReset() {
-        gameBoardArray = gameBoardReset
+        gameBoardArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
         gameBoardString = ` ${gameBoardArray[0]} | ${gameBoardArray[1]} | ${gameBoardArray[2]} \n-----------\n ${gameBoardArray[3]} | ${gameBoardArray[4]} | ${gameBoardArray[5]} \n-----------\n ${gameBoardArray[6]} | ${gameBoardArray[7]} | ${gameBoardArray[8]} `
         playerOne.name = ''
         playerOne.claimedPositions = []
@@ -80,6 +80,7 @@ const game = (function() {
         focusedPlayer = playerOne
         playerTurn = playerOne
         gameStarted = false
+        gameWon = false
         roundsCounter = 1
         requestName()
     }
