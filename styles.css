@@ -172,6 +172,7 @@ html {
 
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body, html {
@@ -187,6 +188,10 @@ body {
   align-items: center;
 }
 
+.mainContainer div {
+  border: 1px solid black;
+}
+
 .mainContainer {
   display: flex;
   flex-direction: column;
@@ -194,6 +199,18 @@ body {
   width: 100%;
 }
 
+#noBorder {
+  border-style: hidden;
+}
+
+#noRightBorder {
+  border-right: 0px;
+
+}
+
+#noLeftBorder {
+  border-left: 0px;
+}
 
 .similarSegment {
   flex: 1 1 15%;
@@ -225,19 +242,95 @@ body {
 }
 
 .startContainer {
-  flex: 1 1 20%;
+  flex: 1 1 30%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.finalDisplay {
-  flex: 1 1 80%;
+.startRestart {
+  border-radius: 4px;
+  padding: 3px 5px;
+  background-color: rgb(180, 37, 37);
+  color: white;
+  font-weight: 800;
+  border: 1px solid black;
+  box-shadow: 1px 1px rgb(0, 0, 0, 0.5);
 }
 
-* {
-  border: 2px solid red;
+.startRestart:hover {
+  filter: brightness(90%)
 }
+
+.finalDisplay {
+  flex: 1 1 70%;
+}
+
+.nameTag, .promptText, .finalDisplay {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.nameTag, .promptText {
+  align-items: flex-end;
+  padding-bottom: 8px;
+}
+
+.nameEntry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.playerLabel {
+  font-size: 1rem;
+  padding: 0 8px 8px;
+}
+
+.playerInput {
+  text-align: center;
+}
+
+.playerInput:invalid {
+  border-color: red;
+}
+
+.finalDisplay {
+  align-items: center;
+}
+
+.gridBoardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridBoard {
+  width: 400px;
+  height: 400px;
+  display: grid;
+  padding: 4px;
+  gap: 8px;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+#boardBorder {
+  border-width: 4px;
+}
+
+.posButton {
+  font-size: 6rem;
+  font-weight: 800;
+}
+
+/* * {
+  border: 2px solid red;
+} */
 
 
 

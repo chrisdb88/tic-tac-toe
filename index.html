@@ -8,20 +8,38 @@
         <script src="./javascript.js" defer></script>
     </head>
     <body>
-        <div class="mainContainer">
+        <div class="mainContainer" id="noBorder">
             <div class="topSegment similarSegment">
-                <div class="nameTag similarFlexSide"></div>
-                <div class="promptText similarFlexMid"></div>
-                <div class="nameTag similarFlexSide"></div>
+                <div class="nameTag similarFlexSide playerOneTag" id="noRightBorder">Player One</div>
+                <div class="promptText similarFlexMid">Click start to begin!</div>
+                <div class="nameTag similarFlexSide playerTwoTag" id="noLeftBorder">Player Two</div>
             </div>
             <div class="midSegment">
-                <div class="nameEntry playerOne similarFlexSide"></div>
-                <div class="gridBoard similarFlexMid"></div>
-                <div class="nameEntry playerTwo similarFlexSide"></div>
+                <div class="nameEntry playerOneBanner similarFlexSide" id="noRightBorder">
+                    <label class="playerLabel">Player One, please enter your name below.</label>
+                    <input class="playerInput" type="text" minlength="1" maxlength="12" id="playerOneInput" required>
+                </div>
+                <div class="gridBoardContainer similarFlexMid">
+                    <div class="gridBoard" id="boardBorder">
+                        <button class="posButton" id="1"></button>
+                        <button class="posButton" id="2"></button>
+                        <button class="posButton" id="3"></button>
+                        <button class="posButton" id="4"></button>
+                        <button class="posButton" id="5"></button>
+                        <button class="posButton" id="6"></button>
+                        <button class="posButton" id="7"></button>
+                        <button class="posButton" id="8"></button>
+                        <button class="posButton" id="9"></button>
+                    </div>
+                </div>
+                <div class="nameEntry playerTwoBanner similarFlexSide" id="noLeftBorder">
+                    <label class="playerLabel">Player Two, please enter your name below.</label>
+                    <input class="playerInput" type="text" minlength="1" maxlength="12" id="playerTwoInput" required>
+                </div>
             </div>
-            <div class="bottomSegment similarSegment">
+            <div class="bottomSegment similarSegment" id="noBorder">
                 <div class="startContainer"><button class="startRestart">Start!</button></div>
-                <div class="finalDisplay"></div>
+                <div class="finalDisplay">Results Display</div>
             </div>
         </div>
     </body>

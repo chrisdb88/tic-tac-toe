@@ -2,6 +2,16 @@
 
 
 const game = (function() {
+
+    const playerOneTag = document.querySelector(".playerOneTag")
+    const playerTwoTag = document.querySelector(".playerTwoTag")
+    const promptText = document.querySelector(".promptText")
+    const playerOneInput = document.querySelector("#playerOneInput")
+    const playerTwoInput = document.querySelector("#playerTwoInput")
+    const finalDisplay = document.querySelector(".finalDisplay")
+    const boardButtons = document.querySelectorAll(".posButton")
+    const startRestartButton = document.querySelector(".startRestart")
+
     const winningCombos = [
         [1, 2, 3], 
         [4, 5, 6], 
@@ -32,43 +42,57 @@ const game = (function() {
         claimedPositions: []
     }
 
-    let focusedPlayer = playerOne
     let playerTurn = playerOne
 
-    function requestName() {
-        let playerNo
-        if (focusedPlayer === playerOne) {
-            playerNo = 1
-        } else if (focusedPlayer === playerTwo) {
-            playerNo = 2
-        }
-        console.log(`Player ${playerNo.toString()}, what is your name?\nType: game.enterName("yourNameHere")`)
-    };
+    // function requestName() {
+    //     let playerNo
+    //     if (focusedPlayer === playerOne) {
+    //         playerNo = 1
+    //     } else if (focusedPlayer === playerTwo) {
+    //         playerNo = 2
+    //     }
+    //     console.log(`Player ${playerNo.toString()}, what is your name?\nType: game.enterName("yourNameHere")`)
+    // };
 
-    requestName()
-
-    function enterName(name) {
-        if (gameStarted === false) {
-            if (typeof name !== "string" || name === "" || (playerOne.name || playerTwo.name) === name) {
-                console.log("Invalid input! Please enter your name contained in parenthesis.")
-                requestName()
-            } else {
-                focusedPlayer.name = name
-                if (focusedPlayer === playerOne) {
-                    console.log(`Okay! ${focusedPlayer.name} is player one!`)
-                    focusedPlayer = playerTwo
-                    requestName()
-                } else {
-                    console.log(`Okay! ${focusedPlayer.name} is player two!\n The game has begun!`)
-                    gameStarted = true
-                    console.log(gameBoardString)
-                    console.log(`${playerTurn.name}, choose a position between 1-9 with game.claimPos(1-9).`)
-                }
+    // requestName()
+    
+    function inputName(playerNo, name) {
+        if ((playerNo === 1 || playerNo === 2) && typeof name === "string" && name.length >= 1 && name.length <= 12) {
+            if (playerNo === 1) {
+                playerOneInput.value = name
+                console.log(`Player one input name set to ${name}.`)
+            } else if (playerNo === 2) {
+                playerTwoInput.value = name
+                console.log(`Player two input name set to ${name}.`)
             }
         } else {
-            console.log("The game has already begun!")
+            console.log("Invalid input! Enter 1 or 2 for the player number, and a string between 1 and 12 characters for the name.")
+            // console.log(`Missing player name(s)!\nPlayer 1: ${playerOne.name}\nPlayer 2: ${playerTwo.name}`)
         }
     }
+
+    // function enterName(name) {
+    //     if (gameStarted === false) {
+    //         if (typeof name !== "string" || name === "" || (playerOne.name || playerTwo.name) === name) {
+    //             console.log("Invalid input! Please enter your name contained in parenthesis.")
+    //             requestName()
+    //         } else {
+    //             focusedPlayer.name = name
+    //             if (focusedPlayer === playerOne) {
+    //                 console.log(`Okay! ${focusedPlayer.name} is player one!`)
+    //                 focusedPlayer = playerTwo
+    //                 requestName()
+    //             } else {
+    //                 console.log(`Okay! ${focusedPlayer.name} is player two!\n The game has begun!`)
+    //                 gameStarted = true
+    //                 console.log(gameBoardString)
+    //                 console.log(`${playerTurn.name}, choose a position between 1-9 with game.claimPos(1-9).`)
+    //             }
+    //         }
+    //     } else {
+    //         console.log("The game has already begun!")
+    //     }
+    //}  gameStarted, focusedPlayer, requestName() is just a console log
 
     function gameReset() {
         gameBoardArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -77,12 +101,10 @@ const game = (function() {
         playerOne.claimedPositions = []
         playerTwo.name = ''
         playerTwo.claimedPositions = []
-        focusedPlayer = playerOne
         playerTurn = playerOne
         gameStarted = false
         gameWon = false
         roundsCounter = 1
-        requestName()
     }
 
     function claimPos(pos) {
@@ -116,7 +138,6 @@ const game = (function() {
                 } else {
                     console.log(`Game! ${playerTurn.name} wins!\nNew game!`)
                 }
-                
                 gameReset()
             } else {
                 if (playerTurn === playerOne) {
@@ -136,8 +157,36 @@ const game = (function() {
             console.log("Invalid input! Please enter a number between 1-9")
         }
     }
+
+    function startGame() {
+        if (typeof playerOneInput.value === "string" && playerOneInput.value.length >= 1 && playerOneInput.value.length <= 12
+            && typeof playerTwoInput.value === "string" && playerTwoInput.value.length >= 1 && playerTwoInput.value.length <= 12) 
+            {
+
+
+            } else {
+
+            }
+    }
+
+    startRestartButton.addEventListener("click", function() {
+        gameReset()
+        startGame()
+    })
+
+    boardButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // pos & game status check
+        })
+    })
+
+
+    // console function for starting / restarting the game functioning identically to the button.
+    
+
     return {
-        enterName,
+        startGame,
+        inputName,
         claimPos
     }
 })();
