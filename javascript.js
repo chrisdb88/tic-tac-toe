@@ -18,8 +18,8 @@ const game = (function() {
     ]
 
     const consoleMessages = [
-        "Enter a player name with the function game.inputName(playerNo, name)",
-        "The game has not begun yet. To begin, enter names for both players using:\n\ngame.inputName(playerNo, name)\n\nWhen both names are entered, do game.startGame() to begin the match.",
+        'Enter a player name with the function game.inputName(playerNo, "name")',
+        'The game has not begun yet. To begin, enter names for both players using:\n\ngame.inputName(playerNo, "name")\n\nWhen both names are entered, do game.startGame() to begin the match.',
         "Match is active! To play, do game.claimPos(positionNumber).\nYou can also do game.startGame() to restart the match.",
         "To learn how to play, enter game.help()"
     ]
@@ -40,7 +40,6 @@ const game = (function() {
     let gameStarted = false
     let roundsCounter = 1
 
-    const gameBoardReset = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     let gameBoardArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     let gameBoardString = ` ${gameBoardArray[0]} | ${gameBoardArray[1]} | ${gameBoardArray[2]} \n-----------\n ${gameBoardArray[3]} | ${gameBoardArray[4]} | ${gameBoardArray[5]} \n-----------\n ${gameBoardArray[6]} | ${gameBoardArray[7]} | ${gameBoardArray[8]} `
 
@@ -57,18 +56,6 @@ const game = (function() {
     }
 
     let playerTurn = playerOne
-
-    // function requestName() {
-    //     let playerNo
-    //     if (focusedPlayer === playerOne) {
-    //         playerNo = 1
-    //     } else if (focusedPlayer === playerTwo) {
-    //         playerNo = 2
-    //     }
-    //     console.log(`Player ${playerNo.toString()}, what is your name?\nType: game.enterName("yourNameHere")`)
-    // };
-
-    // requestName()
 
     function help() {
         if (gameStarted === false) {
@@ -89,32 +76,8 @@ const game = (function() {
             }
         } else {
             console.log("Invalid input! Enter 1 or 2 for the player number, and a string between 1 and 12 characters for the name.")
-            // console.log(`Missing player name(s)!\nPlayer 1: ${playerOne.name}\nPlayer 2: ${playerTwo.name}`)
         }
     }
-
-    // function enterName(name) {
-    //     if (gameStarted === false) {
-    //         if (typeof name !== "string" || name === "" || (playerOne.name || playerTwo.name) === name) {
-    //             console.log("Invalid input! Please enter your name contained in parenthesis.")
-    //             requestName()
-    //         } else {
-    //             focusedPlayer.name = name
-    //             if (focusedPlayer === playerOne) {
-    //                 console.log(`Okay! ${focusedPlayer.name} is player one!`)
-    //                 focusedPlayer = playerTwo
-    //                 requestName()
-    //             } else {
-    //                 console.log(`Okay! ${focusedPlayer.name} is player two!\n The game has begun!`)
-    //                 gameStarted = true
-    //                 console.log(gameBoardString)
-    //                 console.log(`${playerTurn.name}, choose a position between 1-9 with game.claimPos(1-9).`)
-    //             }
-    //         }
-    //     } else {
-    //         console.log("The game has already begun!")
-    //     }
-    //}  gameStarted, focusedPlayer, requestName() is just a console log
 
     function gameReset() {
         gameBoardArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -131,6 +94,7 @@ const game = (function() {
         gameWon = false
         roundsCounter = 1
         finalDisplay.textContent = ''
+        startRestartButton.textContent = "Start"
     }
 
     function claimPos(pos) {
@@ -169,7 +133,6 @@ const game = (function() {
                     finalDisplay.textContent = `${playerTurn.name} wins!`
                 }
                 gameStarted = false
-                // gameReset()
             } else {
                 if (playerTurn === playerOne) {
                     console.log(`Okay! ${playerOne.name} claims position ${pos}.\n${playerTwo.name}! Your turn!`)
@@ -201,6 +164,7 @@ const game = (function() {
                 playerTwo.name = playerTwoInput.value
                 playerTwoTag.textContent = playerTwo.name
                 gameStarted = true
+                startRestartButton.textContent = "Restart"
                 promptText.textContent = `Okay! ${playerOne.name}, your turn first.`
                 console.log(`The game has begun! ${playerOne.name}, it's your turn first!`)
             } else {
@@ -216,23 +180,20 @@ const game = (function() {
     boardButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             claimPos(Number(button.id))
-            // pos & game status check
         })
     })
-
-
-    // console function for starting / restarting the game functioning identically to the button.
     
-
     return {
         startGame,
         inputName,
         claimPos,
         help
     }
-    
 })();
 
-// if (arr[1, 2, 3]) {success}
-
-// console.log(" 1 | 2 | 3 \n------------\n 4 | 5 | 6 \n ------------\n 7 | 8 | 9 ")
+// "An object to control the flow of the game."
+// 
+// 
+// 
+// 
+// 

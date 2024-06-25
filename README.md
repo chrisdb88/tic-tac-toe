@@ -8,7 +8,7 @@ Store players in objects.
 
 An object to control the flow of the game.
 
-
+--------------------------------
 combinations for win
 
 horizontal
@@ -24,17 +24,7 @@ vertical
 diagonal
 1 5 9
 3 5 7
-
-Notes for next time
-
-An object containing the functions and variables that control the flow of the game.
-
-What will be in this object:
-- gameReset()
-- requestName()
-
-Problem from last time: 
-gameBoardArray was not updating, suspected that the const gameBoardReset was not taking effect. Used an explicit definition, not sure if it fixed it. Check next time.
+--------------------------------
 
 A display at the top for prompts.
 A visual gameboard that players can click to mark.
