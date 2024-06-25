@@ -12,6 +12,20 @@ const game = (function() {
     const boardButtons = document.querySelectorAll(".posButton")
     const startRestartButton = document.querySelector(".startRestart")
 
+    const promptTextStrings = [
+        "Missing names!",
+        "Game!"
+    ]
+
+    const consoleMessages = [
+        "Enter a player name with the function game.inputName(playerNo, name)",
+        "The game has not begun yet. To begin, enter names for both players using:\n\ngame.inputName(playerNo, name)\n\nWhen both names are entered, do game.startGame() to begin the match.",
+        "Match is active! To play, do game.claimPos(positionNumber).\nYou can also do game.startGame() to restart the match.",
+        "To learn how to play, enter game.help()"
+    ]
+
+    console.log(consoleMessages[3])
+
     const winningCombos = [
         [1, 2, 3], 
         [4, 5, 6], 
@@ -55,6 +69,14 @@ const game = (function() {
     // };
 
     // requestName()
+
+    function help() {
+        if (gameStarted === false) {
+            console.log(consoleMessages[1])
+        } else if (gameStarted === true) {
+            console.log(consoleMessages[2])
+        }
+    }
     
     function inputName(playerNo, name) {
         if ((playerNo === 1 || playerNo === 2) && typeof name === "string" && name.length >= 1 && name.length <= 12) {
@@ -97,6 +119,9 @@ const game = (function() {
     function gameReset() {
         gameBoardArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
         gameBoardString = ` ${gameBoardArray[0]} | ${gameBoardArray[1]} | ${gameBoardArray[2]} \n-----------\n ${gameBoardArray[3]} | ${gameBoardArray[4]} | ${gameBoardArray[5]} \n-----------\n ${gameBoardArray[6]} | ${gameBoardArray[7]} | ${gameBoardArray[8]} `
+        boardButtons.forEach(function(button) {
+            button.textContent = ''
+        })
         playerOne.name = ''
         playerOne.claimedPositions = []
         playerTwo.name = ''
@@ -105,6 +130,7 @@ const game = (function() {
         gameStarted = false
         gameWon = false
         roundsCounter = 1
+        finalDisplay.textContent = ''
     }
 
     function claimPos(pos) {
@@ -120,6 +146,7 @@ const game = (function() {
             gameBoardArray[pos-1] = playerTurn.marker
             roundsCounter++
             gameBoardString = ` ${gameBoardArray[0]} | ${gameBoardArray[1]} | ${gameBoardArray[2]} \n-----------\n ${gameBoardArray[3]} | ${gameBoardArray[4]} | ${gameBoardArray[5]} \n-----------\n ${gameBoardArray[6]} | ${gameBoardArray[7]} | ${gameBoardArray[8]} `
+            boardButtons[pos-1].textContent = `${playerTurn.marker}`
             console.log(gameBoardString)
             winningCombos.forEach(function(comboToCheck) {
                 if (playerTurn.claimedPositions.includes(comboToCheck[0])
@@ -133,19 +160,25 @@ const game = (function() {
                 gameSet = true
             }
             if (gameSet === true) {
+                promptText.textContent = promptTextStrings[1]
                 if (roundsCounter === 10 && gameWon === false) {
                     console.log("It's a draw!\nNew game!")
+                    finalDisplay.textContent = "It's a draw!"
                 } else {
                     console.log(`Game! ${playerTurn.name} wins!\nNew game!`)
+                    finalDisplay.textContent = `${playerTurn.name} wins!`
                 }
-                gameReset()
+                gameStarted = false
+                // gameReset()
             } else {
                 if (playerTurn === playerOne) {
                     console.log(`Okay! ${playerOne.name} claims position ${pos}.\n${playerTwo.name}! Your turn!`)
+                    promptText.textContent = `Okay! ${playerTwo.name}, it's your turn!`
                     playerTurn = playerTwo
                     
                 } else if (playerTurn === playerTwo) {
                     console.log(`Okay! ${playerTwo.name} claims position ${pos}.\n${playerOne.name}! Your turn!`)
+                    promptText.textContent = `Okay! ${playerOne.name}, it's your turn!`
                     playerTurn = playerOne
                 }
             } 
@@ -159,23 +192,30 @@ const game = (function() {
     }
 
     function startGame() {
+        gameReset()
         if (typeof playerOneInput.value === "string" && playerOneInput.value.length >= 1 && playerOneInput.value.length <= 12
             && typeof playerTwoInput.value === "string" && playerTwoInput.value.length >= 1 && playerTwoInput.value.length <= 12) 
             {
-
-
+                playerOne.name = playerOneInput.value
+                playerOneTag.textContent = playerOne.name
+                playerTwo.name = playerTwoInput.value
+                playerTwoTag.textContent = playerTwo.name
+                gameStarted = true
+                promptText.textContent = `Okay! ${playerOne.name}, your turn first.`
+                console.log(`The game has begun! ${playerOne.name}, it's your turn first!`)
             } else {
-
+                console.log(`Name input(s) missing!\nPlayer 1: ${playerOne.name}\nPlayer 2: ${playerTwo.name}\n\n${consoleMessages[0]}`)
+                promptText.textContent = promptTextStrings[0]
             }
     }
 
     startRestartButton.addEventListener("click", function() {
-        gameReset()
         startGame()
     })
 
     boardButtons.forEach(function(button) {
         button.addEventListener('click', function() {
+            claimPos(Number(button.id))
             // pos & game status check
         })
     })
@@ -187,8 +227,10 @@ const game = (function() {
     return {
         startGame,
         inputName,
-        claimPos
+        claimPos,
+        help
     }
+    
 })();
 
 // if (arr[1, 2, 3]) {success}
